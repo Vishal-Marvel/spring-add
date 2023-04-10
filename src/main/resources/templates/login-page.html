@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<form method="post" action="https://login.microsoftonline.com/common/oauth2/v2.0/authorize">
+    Hello
+<input type="email" name="email"/>
+    <input type="hidden" name="client_id" th:value="${client_id}">
+<!--    <input type="hidden" name="scope" value="group1">-->
+<!--    <input type="hidden" name="secret-val" th:value="secret">-->
+
+    <input type="password" name="email"/>
+    <input type="submit">
+</form>
+<script>
+    let url = document.URL;
+
+</script>
+</body>
+</html>
