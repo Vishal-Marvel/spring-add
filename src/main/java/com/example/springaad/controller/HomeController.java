@@ -1,5 +1,6 @@
 package com.example.springaad.controller;
 
+import com.example.springaad.model.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -13,6 +14,8 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -22,7 +25,6 @@ public class HomeController {
 
     @GetMapping("/")
     @ResponseBody
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String home(OAuth2AuthenticationToken auth){
         return "Hello";
 
@@ -48,10 +50,15 @@ public class HomeController {
     }
     @GetMapping("/login")
     public String login_action(Model model){
-        String client_id = "56373f78-a985-440f-bdfb-bc45a0b82ba9";
-        String client_sec = "Rxg8Q~VMXbwUQY7DIkGJad2n8BAixtIQh6La_chD";
-        model.addAttribute("client_id", client_id);
-        model.addAttribute("secret", client_sec);
+
         return "login-page";
     }
+
+    @PostMapping("/auth/login")
+    @ResponseBody
+    public String login(@ModelAttribute User user){
+        System.out.println("user = " + user);
+
+        return "hello";
+        }
 }

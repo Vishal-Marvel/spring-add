@@ -5,19 +5,19 @@
     <title>Login</title>
 </head>
 <body>
-<form method="post" action="https://login.microsoftonline.com/common/oauth2/v2.0/authorize">
-    Hello
-<input type="email" name="email"/>
-    <input type="hidden" name="client_id" th:value="${client_id}">
-<!--    <input type="hidden" name="scope" value="group1">-->
-<!--    <input type="hidden" name="secret-val" th:value="secret">-->
+<div class=" container">
+    <form th:action="@{/oauth2/authorization/azure}" method="post">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username"/>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password"/>
+        </div>
+        <input type="submit" value="Login"/>
+    </form>
 
-    <input type="password" name="email"/>
-    <input type="submit">
-</form>
-<script>
-    let url = document.URL;
-
-</script>
+</div>
 </body>
 </html>
