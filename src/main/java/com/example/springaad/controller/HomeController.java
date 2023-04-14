@@ -1,5 +1,6 @@
 package com.example.springaad.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
@@ -9,11 +10,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class HomeController {
     @GetMapping("/")
+    @PreAuthorize("hasRole('APPROLE_ADMIN')")
     @ResponseBody
     public String home(OAuth2AuthenticationToken auth){
+        String username = null;
         OAuth2User user = auth.getPrincipal();
-
-        return "Hello " + user.getName();
+        username = user.getName();
+        return "Hello " + username;
 
     }
 
