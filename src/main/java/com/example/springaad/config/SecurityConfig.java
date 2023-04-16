@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
-import java.util.Map;
+
 
 @Configuration
 @EnableWebSecurity
@@ -22,11 +22,11 @@ public class SecurityConfig {
 //                .and()
                 .authorizeHttpRequests( authorize -> authorize
                         .requestMatchers("/outh2/**", "/login/**").permitAll()
-                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/").authenticated()
                         .anyRequest().permitAll()
                     )
                 .oauth2Login()
-//                    .loginPage("/login")
+                    .loginPage("/login")
 //                    .userInfoEndpoint()
 //                        .userService(userService())
 //                        .and()
