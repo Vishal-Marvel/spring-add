@@ -4,23 +4,25 @@ import com.microsoft.aad.msal4j.*;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.net.MalformedURLException;
 import java.util.Collections;
 import java.util.Set;
 
 @Getter
+@Component
 public class JWTSecurity {
-    @Value("${clientId}")
+    @Value("${client.Id}")
     private String clientId;
-    @Value("${clientSecret}")
+    @Value("${client.Secret}")
     private String clientSecret;
-    @Value("${tenantId}")
+    @Value("${client.tenantId}")
     private String tenantId;
     public String run() throws MalformedURLException {
         ConfidentialClientApplication app = ConfidentialClientApplication
-                .builder("c0b1d6a3-4c63-4c06-94b9-daac46b4891c", ClientCredentialFactory.createFromSecret(".Vt8Q~iBZ2IgeKFiwKGpU7JeepEZicJLzPQLudo~"))
-                .authority("https://login.microsoftonline.com/" + "a01dffac-c22e-45ba-b531-fcdf22abd834" + "/")
+                .builder(clientId, ClientCredentialFactory.createFromSecret(clientSecret))
+                .authority("https://login.microsoftonline.com/" + tenantId + "/")
                 .build();
 
         Set<String> scopes = Collections.singleton("https://graph.microsoft.com/.default");

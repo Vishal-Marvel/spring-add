@@ -1,6 +1,7 @@
 package com.example.springaad.controller;
 
 import com.example.springaad.config.JWTSecurity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -12,7 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.net.MalformedURLException;
 
 @Controller
+@RequiredArgsConstructor
 public class HomeController {
+    private final JWTSecurity jwtSecurity;
+
     @GetMapping("/")
     @PreAuthorize("hasRole('APPROLE_ADMIN')")
     @ResponseBody
@@ -20,7 +24,6 @@ public class HomeController {
         String username = null;
         OAuth2User user = auth.getPrincipal();
         username = user.getName();
-        JWTSecurity jwtSecurity = new JWTSecurity();
 
         return "Hello " + username + " "+ jwtSecurity.run();
 

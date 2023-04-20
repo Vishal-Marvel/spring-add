@@ -32,9 +32,9 @@ public class SecurityConfig {
 //                        .and()
                     .defaultSuccessUrl("/")
                     .and()
-//                .logout()
-//                    .logoutSuccessUrl("/")
-//                    .and()
+                .logout()
+                    .logoutSuccessUrl("/")
+                    .and()
                 .build();
 
     }
