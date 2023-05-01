@@ -2,10 +2,13 @@ package com.example.springaad.config;
 
 
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 
@@ -15,28 +18,24 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
 
+    @Value("${client.tenantId}")
+    private String tenant;
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity
-//                .csrf().ignoringRequestMatchers("/oauth2/**")
-//                .and()
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+        return http
                 .authorizeHttpRequests( authorize -> authorize
                         .requestMatchers("/outh2/**", "/login/**").permitAll()
                         .requestMatchers("/").authenticated()
                         .anyRequest().permitAll()
-                    )
+                )
                 .oauth2Login()
-                    .loginPage("/login")
-//                    .userInfoEndpoint()
-//                        .userService(userService())
-//                        .and()
-                    .defaultSuccessUrl("/")
-                    .and()
-                .logout()
-                    .logoutSuccessUrl("/")
-                    .and()
+                .loginPage("/login")
+                .and()
                 .build();
-
     }
-
+    @Bean
+    public JwtDecoder jwtDecoder() {
+        return NimbusJwtDecoder.withJwkSetUri("https://login.microsoftonline.com/"+tenant+"/discovery/v2.0/keys")
+                .build();
+    }
 }
