@@ -59,6 +59,13 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.microsoft.azure</groupId>
+            <artifactId>msal4j</artifactId>
+            <version>1.13.0</version>
+        </dependency>
+
+
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -71,6 +78,13 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+    <repositories>
+        <repository>
+            <id>azure-repo</id>
+            <name>Azure Repository</name>
+            <url>https://repo.spring.io/release</url>
+        </repository>
+    </repositories>
 
     <build>
         <plugins>
